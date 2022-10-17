@@ -9,8 +9,6 @@ using namespace std;
 
 //Given finite set S decide if c is in the set
 
-//int* S;//just for storing
-
 bool contains(int arr[], int n, int val)
 {
 	bool b = false;
@@ -43,6 +41,9 @@ bool contains2(int arr[], int n, int val)
 bool contains3(int arr[], int start, int end, int val)
 {
 	int m = floor((end - start + 1) / 2);
+	if (m == 0) {
+		return false;
+	}
 	if (arr[m] == val) 
 	{
 		return true;
@@ -57,6 +58,7 @@ bool contains3(int arr[], int start, int end, int val)
 			return contains3(arr, m + 1, end, val);
 		}
 	}
+	
 		
 }
 
