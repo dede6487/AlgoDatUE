@@ -107,6 +107,23 @@ int main()
 	// Clock each method by running it 300000 times
 		// for a random c
 
-	int val = rand();
+	double time1 = 0;
+	double time2 = 0;
+	double time3 = 0;
+
+	clock_t start;
+	double duration;
+
+	start = clock();
+
+	for (int k = 0; k < 30000; k++) {
+		int val = rand();//RANGEEEE!!!!!!
+		contains(arr, i, val);
+	}
+	
+	duration = (clock() - start) / (double)
+		CLOCKS_PER_SEC;
+
+	time1 = duration;
 }
 
