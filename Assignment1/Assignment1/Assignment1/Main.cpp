@@ -5,6 +5,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <vector>
 using namespace std;
 
 //Given finite set S decide if c is in the set
@@ -12,11 +13,11 @@ using namespace std;
 bool contains(int arr[], int n, int val)
 {
 	bool b = false;
-	for (int i = 0; i <= n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		if (arr[i] == val)
 		{
-			return b;
+			b = true;
 		}
 	}
 	return b;
@@ -25,11 +26,11 @@ bool contains(int arr[], int n, int val)
 bool contains2(int arr[], int n, int val)
 {
 	int i = 0;
-	while (i <= n && arr[i] != val)
+	while (i < n && arr[i] != val)
 	{
 		i++;
 	}
-	if (i <= n)
+	if (i < n)
 	{
 		return true;
 	}
@@ -38,58 +39,94 @@ bool contains2(int arr[], int n, int val)
 	}
 }
 
+//ther is some problem here which I can not spot
+//comments for troubeshooting
 bool contains3(int arr[], int start, int end, int val)
 {
-	int m = floor((end - start + 1) / 2);
-	if (m == 0) {
-		return false;
-	}
-	if (arr[m] == val)
+	int m = (end - start) / 2;//integer division so no floor
+	//cout << m << endl;
+	if(arr[m] == val)
 	{
 		return true;
+		//cout << "found" << endl;
 	}
 	else {
-		if (val < m)
+		if (val < arr[m])
 		{
 			return contains3(arr, start, m - 1, val);
+			//cout << "smaller" << endl;
 		}
 		else
 		{
 			return contains3(arr, m + 1, end, val);
+			//cout << "greater" << endl;
+		}
+	}
+	return false;
+}
+
+//Exercise 3 *******************************************************
+
+//the idea here is, to save all the indices first, thus we only have to traverse the array once
+//technically we still have the same number of operations because we then traverse the two arrays red and blue though
+void RedBlue(bool arr[], int n) {
+	vector<int> red;
+	vector<int> blue;
+
+	//here we assume red as true and blue as false
+
+	for (int i = 0; i < n; i++) {
+		if (arr[i] == true) {
+			red.push_back(i);
+		}
+		else {
+			blue.push_back(i);
 		}
 	}
 
+	cout << "red indices:" << endl;
 
+	for (int i = 0; i < red.size(); i++) {
+		cout << i << endl;
+	}
+
+	cout << "blue indices:" << endl;
+
+	for (int i = 0; i < blue.size(); i++) {
+		cout << i << endl;
+	}
 }
+
+//******************************************************************
 
 int main()
 {
 	// Read the data from the file
 
 	int number;
-	int c = 10;
-	int* arr = new int[c];
+	vector<int> tempv;
+
 	ifstream inputfile;
 
 	inputfile.open("IntegerWerte.txt");
 
-	for (int i = 0; i <= c; i++) {
-		arr[i] = 0;
-	}
-
-	int i = 0;
 	while (inputfile >> number)
 	{
-		if (c <= i) {
-			int* temp = new int[2 * c];
-			for (int j = 0; j <= c; j++) {
-				temp[j] = arr[j];
-			}
-			arr = temp;
-			delete[] temp;
-		}
-		arr[i] = number;
-		i++;
+		tempv.push_back(number);
+	}
+
+	inputfile.close();
+
+	//tempv stays in memory, should be deleted
+
+	unsigned int size = tempv.size();
+	//cout << size << endl;
+
+	int* arr = new int[size];
+
+	for (int j = 0; j < size; j++) {
+		arr[j] = tempv[j];
+		//cout << arr[j] << endl; //for manual checking if the array was loaded correctly
 	}
 
 	// Test the three methods with chosen values
@@ -100,9 +137,14 @@ int main()
 	bool containsb = false;
 	bool containsc = false;
 
-	containsa = contains(arr, i, val);
-	containsb = contains2(arr, i, val);
-	containsc = contains3(arr, 0, i, val);
+	containsa = contains(arr, size, val);
+	containsb = contains2(arr, size, val);
+	//containsc = contains3(arr, 0, size, val);
+
+	cout << "Testing if the Algorithms work by checking for the element " << val << endl;
+	cout << "Contains1 " << containsa << endl;
+	cout << "Contains2 " << containsb << endl;
+	cout << "Contains3 " << containsc << endl;
 
 	// Clock each method by running it 300000 times
 		// for a random c
@@ -112,18 +154,45 @@ int main()
 	double time3 = 0;
 
 	clock_t start;
-	double duration;
 
+	//Contains1
 	start = clock();
 
 	for (int k = 0; k < 30000; k++) {
-		int val = rand();//RANGEEEE!!!!!!
-		contains(arr, i, val);
+		int val = rand() % 300000;
+		contains(arr, size, val);
 	}
 	
-	duration = (clock() - start) / (double)
+	time1 = (clock() - start) / (double)
 		CLOCKS_PER_SEC;
 
-	time1 = duration;
+
+	//Contains2
+	start = clock();
+
+	for (int k = 0; k < 30000; k++) {
+		int val = rand() % 300000;
+		contains2(arr, size, val);
+	}
+
+	time2 = (clock() - start) / (double)
+		CLOCKS_PER_SEC;
+
+	//Contains3
+
+	//start = clock();
+
+	//for (int k = 0; k < 30000; k++) {
+	//	int val = rand() % 300000;
+	//	contains3(arr, 0, size, val);
+	//}
+
+	//time3 = (clock() - start) / (double)
+	//	CLOCKS_PER_SEC;
+
+	cout<< "Time it took the Algorithms for finishing the testcase:"<<endl;
+	cout << "Contains1 took (seconds):" << time1 << endl;
+	cout << "Contains2 took (seconds):" << time2 << endl;
+	cout << "Contains3 took (seconds):" << time3 << endl;
 }
 
