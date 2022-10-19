@@ -29,7 +29,7 @@ bool contains2(int arr[], int n, int val)
 	{
 		i++;
 	}
-	if (i <= n) 
+	if (i <= n)
 	{
 		return true;
 	}
@@ -44,7 +44,7 @@ bool contains3(int arr[], int start, int end, int val)
 	if (m == 0) {
 		return false;
 	}
-	if (arr[m] == val) 
+	if (arr[m] == val)
 	{
 		return true;
 	}
@@ -58,20 +58,55 @@ bool contains3(int arr[], int start, int end, int val)
 			return contains3(arr, m + 1, end, val);
 		}
 	}
-	
-		
+
+
 }
 
 int main()
 {
 	// Read the data from the file
 
+	int number;
+	int c = 10;
+	int* arr = new int[c];
+	ifstream inputfile;
+
+	inputfile.open("IntegerWerte.txt");
+
+	for (int i = 0; i <= c; i++) {
+		arr[i] = 0;
+	}
+
+	int i = 0;
+	while (inputfile >> number)
+	{
+		if (c <= i) {
+			int* temp = new int[2 * c];
+			for (int j = 0; j <= c; j++) {
+				temp[j] = arr[j];
+			}
+			arr = temp;
+			delete[] temp;
+		}
+		arr[i] = number;
+		i++;
+	}
 
 	// Test the three methods with chosen values
 	// (to verify that it works)
 
+	int val = 53;
+	bool containsa = false;
+	bool containsb = false;
+	bool containsc = false;
+
+	containsa = contains(arr, i, val);
+	containsb = contains2(arr, i, val);
+	containsc = contains3(arr, 0, i, val);
 
 	// Clock each method by running it 300000 times
 		// for a random c
+
+	int val = rand();
 }
 
