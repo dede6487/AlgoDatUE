@@ -43,7 +43,7 @@ bool contains2(int arr[], int n, int val)
 //comments for troubeshooting
 bool contains3(int arr[], int start, int end, int val)
 {
-	int m = (end - start) -1/ 2;//integer division so no floor
+	int m = (end - start) / 2;//integer division so no floor
 	//cout << m << endl;
 	if (arr[m] == val)
 	{
@@ -64,40 +64,6 @@ bool contains3(int arr[], int start, int end, int val)
 	}
 	return false;
 }
-
-//Exercise 3 *******************************************************
-
-//the idea here is, to save all the indices first, thus we only have to traverse the array once
-//technically we still have the same number of operations because we then traverse the two arrays red and blue though
-void RedBlue(bool arr[], int n) {
-	vector<int> red;
-	vector<int> blue;
-
-	//here we assume red as true and blue as false
-
-	for (int i = 0; i < n; i++) {
-		if (arr[i] == true) {
-			red.push_back(i);
-		}
-		else {
-			blue.push_back(i);
-		}
-	}
-
-	cout << "red indices:" << endl;
-
-	for (int i = 0; i < red.size(); i++) {
-		cout << i << endl;
-	}
-
-	cout << "blue indices:" << endl;
-
-	for (int i = 0; i < blue.size(); i++) {
-		cout << i << endl;
-	}
-}
-
-//******************************************************************
 
 int main()
 {
@@ -124,6 +90,8 @@ int main()
 
 	int* arr = new int[size];
 
+	//vector.data
+
 	for (int j = 0; j < size; j++) {
 		arr[j] = tempv[j];
 		//cout << arr[j] << endl; //for manual checking if the array was loaded correctly
@@ -139,7 +107,7 @@ int main()
 
 	containsa = contains(arr, size, val);
 	containsb = contains2(arr, size, val);
-	containsc = contains3(arr, 0, size, val);
+	containsc = contains3(arr, 0, size-1, val);
 
 	cout << "Testing if the Algorithms work by checking for the element " << val << endl;
 	cout << "Contains1 " << containsa << endl;
