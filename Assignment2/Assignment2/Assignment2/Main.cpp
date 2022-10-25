@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
+#include <Matrix.h>
 using namespace std;
 
 //Given finite set S decide if c is in the set
@@ -21,6 +22,19 @@ bool contains(int arr[], int n, int val)
 		}
 	}
 	return b;
+}
+
+int* containsindex(int arr[], int n, int val)
+{
+	vector<int> temp;
+	for (int i = 0; i < n; i++)
+	{
+		if (arr[i] == val)
+		{
+			temp.push_back(i);
+		}
+	}
+	return temp.data();
 }
 
 bool contains2(int arr[], int n, int val)
@@ -127,43 +141,73 @@ int main()
 	clock_t start;
 
 	//Contains1
-	start = clock();
+	//start = clock();
 
-	for (int k = 0; k < 30000; k++) {
-		int val = rand() % 300000;
-		contains(arr, size-1, val);
-	}
+	//for (int k = 0; k < 300000; k++) {
+	//	int val = rand() % 300000;
+	//	contains(arr, size-1, val);
+	//}
 
-	time1 = (clock() - start) / (double)
-		CLOCKS_PER_SEC;
+	//time1 = (clock() - start) / (double)
+	//	CLOCKS_PER_SEC;	
 
 
 	//Contains2
-	start = clock();
+	//start = clock();
 
-	for (int k = 0; k < 30000; k++) {
-		int val = rand() % 300000;
-		contains2(arr, size-1, val);
-	}
+	//for (int k = 0; k < 300000; k++) {
+	//	int val = rand() % 300000;
+	//	contains2(arr, size-1, val);
+	//}
 
-	time2 = (clock() - start) / (double)
-		CLOCKS_PER_SEC;
+	//time2 = (clock() - start) / (double)
+	//	CLOCKS_PER_SEC;
 
 	//Contains3
 
-	start = clock();
+	//start = clock();
 
-	for (int k = 0; k < 30000; k++) {
-		int val = rand() % 300000;
-		contains3(arr, 0, size-1, val);
-	}
+	//for (int k = 0; k < 300000; k++) {
+	//	int val = rand() % 300000;
+	//	contains3(arr, 0, size-1, val);
+	//}
 
-	time3 = (clock() - start) / (double)
-		CLOCKS_PER_SEC;
+	//time3 = (clock() - start) / (double)
+	//	CLOCKS_PER_SEC;
 
 	cout << "Time it took the Algorithms for finishing the testcase:" << endl;
 	cout << "Contains1 took (seconds):" << time1 << endl;
 	cout << "Contains2 took (seconds):" << time2 << endl;
 	cout << "Contains3 took (seconds):" << time3 << endl;
+
+	//just Algorithm 1 is suited for Task 2, because the 3rd requires an ordered array
+	//and the 2nd breaks as soon as the first is found
+
+	vector<int> temp2;
+
+	ifstream Integer;
+
+	Integer.open("Integers.txt");
+
+	while (Integer >> number)
+	{
+		temp2.push_back(number);
+	}
+
+	Integer.close();
+
+	int size2 = temp2.size();
+
+	int* arr2 = new int[size2];
+
+	arr2 = temp2.data();
+
+	int val2 = 2;
+
+	int* index;
+
+	index = containsindex(arr2, size2 - 1, val2);
+
+	//print index
 }
 
