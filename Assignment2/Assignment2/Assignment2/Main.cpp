@@ -43,8 +43,12 @@ bool contains2(int arr[], int n, int val)
 //comments for troubeshooting
 bool contains3(int arr[], int start, int end, int val)
 {
-	int m = (end - start) / 2;//integer division so no floor
+	int m = ((end - start) / 2) + start;//integer division so no floor
 	//cout << m << endl;
+	if (m == start || m == end)
+	{
+		return false;
+	}
 	if (arr[m] == val)
 	{
 		return true;
@@ -53,16 +57,15 @@ bool contains3(int arr[], int start, int end, int val)
 	else {
 		if (val < arr[m])
 		{
-			return contains3(arr, start, m-1, val);
+			return contains3(arr, start, m, val);
 			//cout << "smaller" << endl;
 		}
 		else
 		{
-			return contains3(arr, m+1, end, val);
+			return contains3(arr, m, end, val);
 			//cout << "greater" << endl;
 		}
 	}
-	return false;
 }
 
 int main()
@@ -105,8 +108,8 @@ int main()
 	bool containsb = false;
 	bool containsc = false;
 
-	containsa = contains(arr, size, val);
-	containsb = contains2(arr, size, val);
+	containsa = contains(arr, size-1, val);
+	containsb = contains2(arr, size-1, val);
 	containsc = contains3(arr, 0, size-1, val);
 
 	cout << "Testing if the Algorithms work by checking for the element " << val << endl;
@@ -128,7 +131,7 @@ int main()
 
 	for (int k = 0; k < 30000; k++) {
 		int val = rand() % 300000;
-		contains(arr, size, val);
+		contains(arr, size-1, val);
 	}
 
 	time1 = (clock() - start) / (double)
@@ -140,7 +143,7 @@ int main()
 
 	for (int k = 0; k < 30000; k++) {
 		int val = rand() % 300000;
-		contains2(arr, size, val);
+		contains2(arr, size-1, val);
 	}
 
 	time2 = (clock() - start) / (double)
@@ -148,15 +151,15 @@ int main()
 
 	//Contains3
 
-	//start = clock();
+	start = clock();
 
-	//for (int k = 0; k < 30000; k++) {
-	//	int val = rand() % 300000;
-	//	contains3(arr, 0, size, val);
-	//}
+	for (int k = 0; k < 30000; k++) {
+		int val = rand() % 300000;
+		contains3(arr, 0, size-1, val);
+	}
 
-	//time3 = (clock() - start) / (double)
-	//	CLOCKS_PER_SEC;
+	time3 = (clock() - start) / (double)
+		CLOCKS_PER_SEC;
 
 	cout << "Time it took the Algorithms for finishing the testcase:" << endl;
 	cout << "Contains1 took (seconds):" << time1 << endl;
