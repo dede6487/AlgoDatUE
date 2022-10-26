@@ -5,8 +5,10 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+
 #include <vector>
 #include <Matrix.h>
+
 using namespace std;
 
 //Given finite set S decide if c is in the set
@@ -24,17 +26,19 @@ bool contains(int arr[], int n, int val)
 	return b;
 }
 
-int* containsindex(int arr[], int n, int val)
+//using the contains algorithm above, the function containsindex returns an int-vector containing all the indices
+//of val in arr
+vector<int> containsindex(int arr[], int n, int val)
 {
 	vector<int> temp;
 	for (int i = 0; i < n; i++)
 	{
 		if (arr[i] == val)
 		{
-			temp.push_back(i);
+			temp.push_back(i+1);
 		}
 	}
-	return temp.data();
+	return temp;
 }
 
 bool contains2(int arr[], int n, int val)
@@ -53,12 +57,9 @@ bool contains2(int arr[], int n, int val)
 	}
 }
 
-//ther is some problem here which I can not spot
-//comments for troubeshooting
 bool contains3(int arr[], int start, int end, int val)
 {
 	int m = ((end - start) / 2) + start;//integer division so no floor
-	//cout << m << endl;
 	if (m == start || m == end)
 	{
 		return false;
@@ -66,24 +67,22 @@ bool contains3(int arr[], int start, int end, int val)
 	if (arr[m] == val)
 	{
 		return true;
-		//cout << "found" << endl;
 	}
 	else {
 		if (val < arr[m])
 		{
 			return contains3(arr, start, m, val);
-			//cout << "smaller" << endl;
 		}
 		else
 		{
 			return contains3(arr, m, end, val);
-			//cout << "greater" << endl;
 		}
 	}
 }
 
 int main()
 {
+	//************************************ Exercise 1 *******************************************
 	// Read the data from the file
 
 	int number;
@@ -180,9 +179,14 @@ int main()
 	cout << "Contains2 took (seconds):" << time2 << endl;
 	cout << "Contains3 took (seconds):" << time3 << endl;
 
-	//just Algorithm 1 is suited for Task 2, because the 3rd requires an ordered array
-	//and the 2nd breaks as soon as the first is found
 
+	//************************************ Exercise 2 *******************************************
+
+
+	//just Algorithm 1 is suited for Task 2, because the 3rd requires an ordered array
+	//and the 2nd breaks as soon as the first index is found
+
+	//reading the new file
 	vector<int> temp2;
 
 	ifstream Integer;
@@ -202,12 +206,32 @@ int main()
 
 	arr2 = temp2.data();
 
+	//testing the new function searching for all indices of 2
 	int val2 = 2;
 
-	int* index;
+	vector<int> index = containsindex(arr2, size2 - 1, val2);
 
-	index = containsindex(arr2, size2 - 1, val2);
+	//printing the indices of 2
+	for (int i = 0; i < index.size(); i++) {
+		cout<<index[i]<<" ";
+	}
 
-	//print index
+
+	//************************************ Exercise 3 *******************************************
+
+	ifstream matrixSearch;
+
+	matrixSearch.open("MatrixBinSearch.txt");
+
+	int n = 0;
+	int m = 0;
+
+	matrixSearch >> n;
+	matrixSearch >> m;
+
+	Matrix matrix(n, m);
+
+
+
 }
 
