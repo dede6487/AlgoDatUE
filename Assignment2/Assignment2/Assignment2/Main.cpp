@@ -6,8 +6,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "Matrix.h"
 #include <vector>
-#include <Matrix.h>
+
 
 using namespace std;
 
@@ -58,6 +59,29 @@ bool contains2(int arr[], int n, int val)
 }
 
 bool contains3(int arr[], int start, int end, int val)
+{
+	int m = ((end - start) / 2) + start;//integer division so no floor
+	if (m == start || m == end)
+	{
+		return false;
+	}
+	if (arr[m] == val)
+	{
+		return true;
+	}
+	else {
+		if (val < arr[m])
+		{
+			return contains3(arr, start, m, val);
+		}
+		else
+		{
+			return contains3(arr, m, end, val);
+		}
+	}
+}
+
+tuple<int, int>  containsMatrix(Matrix matrix, int val)
 {
 	int m = ((end - start) / 2) + start;//integer division so no floor
 	if (m == start || m == end)
@@ -231,6 +255,12 @@ int main()
 
 	Matrix matrix(n, m);
 
+	int l = 0;
+	while (matrixSearch >> number) 
+	{
+		matrix.writeElem(l, number);
+		l++;
+	}
 
 
 }
