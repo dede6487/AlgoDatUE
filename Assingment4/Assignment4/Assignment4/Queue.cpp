@@ -13,18 +13,35 @@ Queue<T>::Queue() {
 
 template <class T>
 Queue<T>::~Queue() {
-	//delete data;
+	//sdelete data;
 }
 
 template <class T>
 void Queue<T>::enqueue(T element) {
-	data[endIndex] = element;
-	endIndex = (endIndex + 1) % MAX_SIZE;
+	if (endIndex + 1 != MAX_SIZE - 1)
+	{
+		data[endIndex + 1] = element;
+		endIndex++;
+	}
+	else if(frontIndex == 0)
+	{
+		cout << "Queue is full!" << endl;
+	}
+	else
+	{
+		cout << "shifiting the data..." << endl;
+		for (int i = 0; i <= endIndex - frontIndex; i++)
+		{
+			data[i] = data[frontIndex + i];
+		}
+		endIndex = frontIndex;
+		frontIndex = 0;
+	}
 }
 
 template <class T>
 void Queue<T>::dequeue() {//check if empty
-	endIndex = (endIndex - 1) % MAX_SIZE;
+	endIndex--;
 }
 
 template <class T>
@@ -39,7 +56,7 @@ bool Queue<T>::isEmpty() {
 
 template <class T>
 bool Queue<T>::isFull() { 
-	return (endIndex - frontIndex) == MAX_SIZE; //wrong
+	return (endIndex - frontIndex) == MAX_SIZE;
 }
 
 template <class T>
