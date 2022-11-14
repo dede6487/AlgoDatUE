@@ -22,7 +22,7 @@ private:
 public:
 	LinkedList();
 	~LinkedList();
-	void empty();
+	LinkedList empty();
 	Node* front();
 	Node* last();
 	void insert(Node* node, T value); //insert after node

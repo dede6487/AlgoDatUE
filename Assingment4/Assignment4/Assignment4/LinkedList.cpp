@@ -14,7 +14,7 @@ LinkedList<T>::~LinkedList(){
 }
 
 template <class T>
-void LinkedList<T>::empty() {
+LinkedList<T> LinkedList<T>::empty() {
 	return LinkedList<T>::LinkedList();
 }
 
@@ -30,12 +30,12 @@ typename LinkedList<T>::Node* LinkedList<T>::last() {
 
 template <class T>
 typename LinkedList<T>::Node* LinkedList<T>::next(Node *node) {
-	return &node.next;
+	return (*node).next;
 }
 
 template <class T>
 typename LinkedList<T>::Node* LinkedList<T>::prev(Node* node) {
-	return &node.prev;
+	return (*node).prev;
 }
 
 template <class T>
@@ -52,15 +52,15 @@ template <class T>
 bool LinkedList<T>::nodeInList(Node* node){
 	while (true)
 	{
-		Node i = firstN;
-		if (i.data == node.data && i.next == node.next && i.prev == node.prev) {
+		Node* i = firstN;
+		if ((*i).data == (*node).data && (*i).next == (*node).next && (*i).prev == (*node).prev) {
 			return true;
 		}
-		if (&i = lastN)
+		if (i = lastN)
 		{
 			return false;
 		}
-		i = i.next;
+		i = (*i).next;
 	}
 }
 
@@ -73,16 +73,18 @@ template <class T>
 void LinkedList<T>::remove(Node* node){
 	//we assume, that node is element of the linked list
 	
-	node.next.prev = node.prev;
-	node.prev.next = node.next;
+	(*(*node).next).prev = (*node).prev;
+	(*(*node).prev).next = (*node).next;
 
+	delete (*node).next;
+	delete (*node).prev;
 	delete node; //also delete pointers
 }
 
 template <class T>
 void LinkedList<T>::concat(LinkedList& tail){
-	lastN.next = tail.firstN;
-	tail.firstN.prev = lastN;
+	(*lastN).next = tail.firstN;
+	(*tail.firstN).prev = lastN;
 	lastN = tail.lastN;
 }
 
@@ -95,36 +97,37 @@ template <class T>
 typename LinkedList<T>::Node* LinkedList<T>::find(T value){
 	while (true)
 	{
-		Node i = firstN;
-		if (i.data == value) {
-			return &i;
+		Node* i = firstN;
+		if ((*i).data == value) {
+			return i;
 		}
 		if (i == lastN)
 		{
 			return NULL;
 		}
-		i = i.next;
+		i = (*i).next;
 	}
 }
 
 template <class T>
 T LinkedList<T>::retrieve(Node* node){
 	//verstehe noch nicht ganz was das macht
+	return NULL;
 }
 
 template <class T>
 void LinkedList<T>::printList () {
 	while (true)
 	{
-		Node i = firstN;
+		Node* i = firstN;
 		
-		cout << i.data << ", ";
+		cout << (*i).data << ", ";
 
 		if (i == lastN)
 		{
 			break;
 		}
-		i = i.next;
+		i = (*i).next;
 	}
 	cout << endl;
 }
@@ -133,15 +136,15 @@ template <class T>
 void LinkedList<T>::printCompleteList () {
 	while (true)
 	{
-		Node i = firstN;
+		Node* i = firstN;
 
-		cout << "(" << i.prev << " - " << i.data << " - " << i.next << ")";
+		cout << "(" << (*i).prev << " - " << (*i).data << " - " << (*i).next << ")";
 
 		if (i == lastN)
 		{
 			break;
 		}
-		i = i.next;
+		i = (*i).next;
 	}
 	cout << endl;
 }
