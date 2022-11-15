@@ -4,6 +4,11 @@ using namespace std;
 
 template <class T>
 CircularQueue<T>::CircularQueue() {
+	for (int i = 0; i < MAX_SIZE; i++) {
+		data[i] = NULL;
+	}
+	frontIndex = 0;
+	endIndex = 0;
 }
 
 template <class T>
@@ -37,9 +42,9 @@ bool CircularQueue<T>::isFull() {
 
 template <class T>
 void CircularQueue<T>::printQueue () {
-	for (int i = frontIndex; i <= endIndex; i++)
+	for (int i = frontIndex; i < endIndex; i++)
 	{
-		cout << data[i];
+		cout << data[i] << " ";
 	}
 	cout << endl;
 }

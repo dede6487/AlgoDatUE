@@ -20,10 +20,10 @@ template <class T>
 void Queue<T>::enqueue(T element) {
 	if (endIndex + 1 != MAX_SIZE - 1)
 	{
-		data[endIndex + 1] = element;
+		data[endIndex] = element;
 		endIndex++;
 	}
-	else if(frontIndex == 0)
+	else if(frontIndex == 100)
 	{
 		cout << "Queue is full!" << endl;
 	}
@@ -61,9 +61,9 @@ bool Queue<T>::isFull() {
 
 template <class T>
 void Queue<T>::printQueue () {
-	for (int i = frontIndex; i <= endIndex; i++)
+	for (int i = frontIndex; i < endIndex; i++)
 	{
-		cout << data[i];
+		cout << data[i] << " ";
 	}
 	cout << endl;
 }

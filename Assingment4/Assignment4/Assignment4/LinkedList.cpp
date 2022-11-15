@@ -4,8 +4,16 @@ using namespace std;
 
 template <class T>
 LinkedList<T>::LinkedList(){
-	firstN = NULL;
-	lastN = NULL;
+	Node* first = new Node;
+	Node* last = new Node;
+	(*first).data = NULL;
+	(*first).next = last;
+	(*first).prev = NULL;
+	(*last).data = NULL;
+	(*last).next = NULL;
+	(*last).prev = first;
+	firstN = first;
+	lastN = last;
 }
 
 template <class T>
@@ -20,12 +28,12 @@ LinkedList<T> LinkedList<T>::empty() {
 
 template <class T>
 typename LinkedList<T>::Node* LinkedList<T>::front() {
-	return firstN;
+	return (*firstN).next;
 }
 
 template <class T>
 typename LinkedList<T>::Node* LinkedList<T>::last() {
-	return lastN;
+	return (*lastN).prev;
 }
 
 template <class T>
@@ -66,7 +74,26 @@ bool LinkedList<T>::nodeInList(Node* node){
 
 template <class T>
 void LinkedList<T>::insert(Node* node, T value){
+	Node* n = new Node;
 
+	(*n).data = value;
+	
+	if (node == firstN)
+	{
+		(*(*firstN).next).prev = n;
+		(*firstN).next = n;
+	}
+	else if(node == lastN)
+	{
+		(*lastN).prev = n;
+		lastN = n;
+	}
+	else
+	{
+		(*n).next = (*node).next;
+		(*node).next = n;
+		(*n).prev = node;
+	}
 }
 
 template <class T>
@@ -90,7 +117,7 @@ void LinkedList<T>::concat(LinkedList& tail){
 
 template <class T>
 bool LinkedList<T>::isEmpty(){
-	return lastN == NULL && firstN == NULL;
+	return (*firstN).next == lastN;
 }
 
 template <class T>
