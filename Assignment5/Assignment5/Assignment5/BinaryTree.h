@@ -15,8 +15,8 @@ private:
 public:
 	BinaryTree();
 	~BinaryTree();
-	BinaryTree empty();//before it woulve been void
-	void makeTree(BinaryTree& leftT, T element, BinaryTree& rightT);
+	BinaryTree empty();//changed datatype, before it woulve been void - so the wrong datatype
+	BinaryTree makeTree(BinaryTree& leftT, T element, BinaryTree& rightT);//changed datatype, before it woulve been void - should also be binaryTree?
 	T key();
 	BinaryTree leftTree();
 	BinaryTree rightTree();

@@ -7,6 +7,9 @@ using namespace std;
 
 int main()
 {
+	BinaryTree a;
+
+
 }
 
 

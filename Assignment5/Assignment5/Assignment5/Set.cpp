@@ -20,7 +20,7 @@ void Set<T>::empty() {
 
 template <class T>
 void Set<T>::insert(T element) {
-	if (find(l.begin(), lt.end(), element) == my_list.end()) //checks if element is not in set, this ensures that there are no duplicates
+	if (find(l.begin(), l.end(), element) == l.end()) //checks if element is not in set, this ensures that there are no duplicates
 	{
 		(*l).push_front(element);
 	}
@@ -28,15 +28,15 @@ void Set<T>::insert(T element) {
 
 template <class T>
 void Set<T>::remove(T element)  {
-	if (find(l.begin(), lt.end(), element) != my_list.end())
+	if (find(l.begin(), l.end(), element) != l.end())
 	{
-		l.erase(find(l.begin(), lt.end(), element));
+		l.erase(find(l.begin(), l.end(), element));
 	}
 }
 
 template <class T>
 bool Set<T>::member(T element){
-	return find(l.begin(), lt.end(), element) != my_list.end();
+	return find(l.begin(), l.end(), element) != l.end();
 }
 
 template <class T>
@@ -54,7 +54,7 @@ typename Set<T>::Set Set<T>::unite(typename Set<T>::Set<T>& secondSet) {
 	}
 	Set temp = list(l);
 
-	list<Student>::iterator<T> it;
+	list<T>::iterator<T> it;
 	for (it = (*secondSet).begin(); it != (*secondSet).end(); it++)
 	{
 		temp.insert(*it);
@@ -90,7 +90,7 @@ T* Set<T>::enumerate() {
 	T arr = new T(l.size());
 
 	int i = 0;
-	list<Student>::iterator<T> it;
+	list<T>::iterator<T> it;
 	for (it = (*l).begin(); it != (*l).end(); it++)
 	{
 		arr[i] = *it;
@@ -106,7 +106,7 @@ int Set<T>::getSize() {
 
 template <class T>
 void Set<T>::printSet() {
-	list<Student>::iterator<T> it;
+	list<T>::iterator<T> it;
 	for (it = (*l).begin(); it != (*l).end(); it++)
 	{
 		cout << *it << " ";
