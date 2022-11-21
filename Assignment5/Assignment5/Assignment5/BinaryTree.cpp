@@ -26,8 +26,8 @@ template <class T>
 BinaryTree<T> BinaryTree<T>::makeTree(BinaryTree& leftT, T element, BinaryTree& rightT) {
 	BinaryTree temp = empty();
 	(*(temp.root)).data = element;
-	(* (temp.root)).left = leftT;
-	(*(temp.root)).right = rightT;
+	(*(temp.root)).left = ((leftT).root);
+	(*(temp.root)).right = ((rightT).root);
 	return temp;
 }
 
@@ -39,14 +39,14 @@ T BinaryTree<T>::key() {
 template <class T>
 BinaryTree<T> BinaryTree<T>::leftTree() {
 	BinaryTree temp = empty();
-	temp.root = root.left;
+	temp.root = (*root).left;
 	return temp;
 }
 
 template <class T>
 BinaryTree<T> BinaryTree<T>::rightTree() {
 	BinaryTree temp = empty();
-	temp.root = root.right;
+	temp.root = (*root).right;
 	return temp;
 }
 
@@ -55,9 +55,9 @@ void BinaryTree<T>::printBinaryTree() {
 	if (root == NULL) {
 		return;
 	}
-	cout << *(this->root).data << endl;
-	this->leftTree.printBinaryTree();
-	this->rightTree.printBinaryTree();
+	cout << (*(this->root)).data << endl;
+	leftTree().printBinaryTree();
+	rightTree().printBinaryTree();
 }
 
 template class BinaryTree<int>;

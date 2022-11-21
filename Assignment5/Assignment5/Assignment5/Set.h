@@ -4,6 +4,8 @@
 //instead used: STL container list
 #include <list>
 
+using namespace std;
+
 template <class T = int>
 class Set {
 private:
@@ -13,7 +15,7 @@ private:
 public:
 	Set();
 	~Set();
-	void empty();
+	Set empty();
 	void insert(T element);
 	void remove(T element);
 	bool member(T element);

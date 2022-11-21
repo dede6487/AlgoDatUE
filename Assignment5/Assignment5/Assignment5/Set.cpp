@@ -14,13 +14,13 @@ Set<T>::~Set() {
 }
 
 template <class T>
-void Set<T>::empty() {
+Set<T> Set<T>::empty() {
 	return Set();
 }
 
 template <class T>
 void Set<T>::insert(T element) {
-	if (find(l.begin(), l.end(), element) == l.end()) //checks if element is not in set, this ensures that there are no duplicates
+	if (find((*l).begin(), (*l).end(), element) == (*l).end()) //checks if element is not in set, this ensures that there are no duplicates
 	{
 		(*l).push_front(element);
 	}
@@ -28,60 +28,69 @@ void Set<T>::insert(T element) {
 
 template <class T>
 void Set<T>::remove(T element)  {
-	if (find(l.begin(), l.end(), element) != l.end())
+	if (find((*l).begin(), (*l).end(), element) != (*l).end())
 	{
-		l.erase(find(l.begin(), l.end(), element));
+		(*l).erase(find((*l).begin(), (*l).end(), element));
 	}
 }
 
 template <class T>
 bool Set<T>::member(T element){
-	return find(l.begin(), l.end(), element) != l.end();
+	return find((*l).begin(), (*l).end(), element) != (*l).end();
 }
 
 template <class T>
 bool Set<T>::isEmpty() {
-	return l.empty();
+	return (*l).empty();
 }
 
 template <class T>
 typename Set<T>::Set Set<T>::unite(typename Set<T>::Set<T>& secondSet) {
-	if (this->empty()) {
-		return *secondSet;
+	if (this->isEmpty()) {
+		return secondSet;
 	}
-	else if ((*secondSet).empty()) {
-		return this;
+	else if ((secondSet).isEmpty()) {
+		return *this;
 	}
-	Set temp = list(l);
+	Set<T> temp;
+	list<T>* t = new list<T>;
+	*t = list<T>(l);
 
-	list<T>::iterator<T> it;
-	for (it = (*secondSet).begin(); it != (*secondSet).end(); it++)
+	typename list<T>::template iterator<T> it;
+	for (it = (*secondSet.l).begin(); it != (*secondSet.l).end(); it++)
 	{
-		temp.insert(*it);
+		t.insert(*it);
 	}
+	temp.l = t;
+
 	return temp;
 }
 
 template <class T>
 typename Set<T>::Set Set<T>::intersect(typename Set<T>::Set<T>& secondSet) {
 	Set* temp = this->unite(secondSet);
-	(*temp).remove_if([](const T elem){
+	(*temp).remove_if([](const T elem) {
 		return !(*secondSet.member(elem) || !this->member(elem));
-		};
+		});
 	return temp;
 }
 
 template <class T>
 typename Set<T>::Set Set<T>::subtract(typename Set<T>::Set<T>& secondSet) {
-	(*l).remove_if([](const T elem) {
-		return (*secondSet).member(elem));
-	};
+	Set<T> temp;
+	list<T>* n = new list<T>;
+	n = *l;
+	(n).remove_if([](const T elem) {
+		return (*secondSet).member(elem);
+	});
+	temp.l = &n;
 	return temp;
 }
 
+//Error VS C1075 "Kein übereinstimmendes Token gefunden"
 template <class T>
 typename Set<T>::Set Set<T>::symmDiff(typename Set<T>::Set<T>& secondSet) {
-	return (this->subtract(secondSet).unite((secondSet).subtract(this)); // (this \ secondSet) u (secondSet \ this)
+	return this->subtract(secondSet).unite(secondSet.subtract(this)); // (this \ secondSet) u (secondSet \ this)
 }
 
 // returns an array containing all the elements in the set
@@ -90,7 +99,7 @@ T* Set<T>::enumerate() {
 	T arr = new T(l.size());
 
 	int i = 0;
-	list<T>::iterator<T> it;
+	typename list<T>::template iterator<T> it;
 	for (it = (*l).begin(); it != (*l).end(); it++)
 	{
 		arr[i] = *it;
@@ -106,7 +115,7 @@ int Set<T>::getSize() {
 
 template <class T>
 void Set<T>::printSet() {
-	list<T>::iterator<T> it;
+	typename list<T>::template iterator<T> it;
 	for (it = (*l).begin(); it != (*l).end(); it++)
 	{
 		cout << *it << " ";
