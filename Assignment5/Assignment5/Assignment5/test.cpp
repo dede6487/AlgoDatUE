@@ -7,7 +7,11 @@ using namespace std;
 
 int main()
 {
-	BinaryTree a;
+	BinaryTree<int> a, b, c;
+	a = a.empty();
+	b = b.empty();
+
+	c.makeTree(a ,5 , b);
 
 
 }
