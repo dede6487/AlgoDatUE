@@ -23,5 +23,8 @@
     <ClCompile Include="BinSearchTree.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -20,6 +20,10 @@ public:
 	BinSearchTree empty();
 	bool isempty(BinSearchTree t);
 	bool member(T x);
-	BinSearchTree insert(T x);
-	BinSearchTree del(T x);
+	void insert(T x);
+	void del(T x);
+
+	//Helpfunctions
+	BinSearchTree leftTree();
+	BinSearchTree rightTree();
 };
