@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{82983f10-6898-438c-a19e-e88b163c34a5}</ProjectGuid>
-    <RootNamespace>Assignment5</RootNamespace>
+    <ProjectGuid>{8153c185-ef5a-49ff-b123-0e6fe854d560}</ProjectGuid>
+    <RootNamespace>BinTree</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,14 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BinaryTree.cpp" />
-    <ClCompile Include="Set.cpp" />
-    <ClCompile Include="testBT.cpp" />
-    <ClCompile Include="testS.cpp" />
+    <ClInclude Include="BinaryTree.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinaryTree.h" />
-    <ClInclude Include="Set.h" />
+    <ClCompile Include="BinaryTree.cpp" />
+    <ClCompile Include="testBT.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
