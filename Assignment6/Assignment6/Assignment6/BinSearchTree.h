@@ -12,6 +12,8 @@ public:
 private:
 	Node* root;
 
+	BinSearchTree* makeTree(BinSearchTree& left, T x, BinSearchTree& right);
+
 public:
 
 	BinSearchTree();
@@ -26,4 +28,6 @@ public:
 	//Helpfunctions
 	BinSearchTree leftTree();
 	BinSearchTree rightTree();
+
+	Node* min();
 };

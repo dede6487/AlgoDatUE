@@ -1,5 +1,9 @@
 #include "BinSearchTree.h"
 
+#include<iostream>
+
+using namespace std;
+
 template<class T>
 BinSearchTree<T>::BinSearchTree()
 {
@@ -77,12 +81,18 @@ void BinSearchTree<T>::del(T x)
 		}
 		else
 		{
-			//case 2
+			Node a = rightTree().min();
+			BinSearchTree T1 = leftTree();
+			BinSearchTree T2 = rightTree();
+			T2.del(a);
+			BinSearchTree* temp;
+			temp = makeTree(T1, (*(a.root)).data, T2);
+			root = (*temp).root;
 		}
 	}
 	else if (root == nullptr) {
 		cout<<"x not in Tree"<<endl;
-		abort(-1);
+		abort();
 	}
 	else if (x < (*root).data) {
 		leftTree().del(x);
@@ -107,5 +117,25 @@ BinSearchTree<T> BinSearchTree<T>::rightTree() {
 	BinSearchTree temp = new BinSearchTree;
 	temp = empty();
 	(*temp).root = (*root).right;
+	return temp;
+}
+
+template <class T>
+typename BinSearchTree<T>::Node* BinSearchTree<T>::min() {
+	BinSearchTree<T>::Node* min = root;
+	if ((*root).left == nullptr)
+	{
+		return prev;
+	}
+	min = leftTree().min();
+}
+
+template <class T>
+BinSearchTree<T>* BinSearchTree<T>::makeTree(BinSearchTree& left, T x, BinSearchTree& right) {
+	BinSearchTree* temp = new BinSearchTree;
+	*temp = empty();
+	(*((*temp).root)).data = x;
+	(*((*temp).root)).left = ((left).root);
+	(*((*temp).root)).right = ((right).root);
 	return temp;
 }
