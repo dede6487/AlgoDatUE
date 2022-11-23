@@ -19,8 +19,8 @@ public:
 	BinSearchTree();
 	~BinSearchTree();
 
-	BinSearchTree empty();
-	bool isempty(BinSearchTree t);
+	void empty();
+	bool isempty();
 	bool member(T x);
 	void insert(T x);
 	void del(T x);

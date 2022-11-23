@@ -7,7 +7,7 @@ using namespace std;
 template<class T>
 BinSearchTree<T>::BinSearchTree()
 {
-	//root = nullptr;
+	root = nullptr;
 }
 
 template<class T>
@@ -17,13 +17,13 @@ BinSearchTree<T>::~BinSearchTree()
 }
 
 template<class T>
-BinSearchTree<T> BinSearchTree<T>::empty()
+void BinSearchTree<T>::empty()
 {
-	return BinSearchTree<T>::BinSearchTree();
+	root = nullptr;
 }
 
 template<class T>
-bool BinSearchTree<T>::isempty(BinSearchTree t)
+bool BinSearchTree<T>::isempty()
 {
 	return root == nullptr;
 }
