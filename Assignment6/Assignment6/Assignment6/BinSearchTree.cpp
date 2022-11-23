@@ -31,17 +31,18 @@ bool BinSearchTree<T>::isempty()
 template<class T>
 bool BinSearchTree<T>::member(T x)
 {
-	if ((*root).data == x) {
-		return true;
-	}
-	else if (root == nullptr) {
+	//first checking if root == nullptr, else it would try to get "nullptr.data"
+	if (root == nullptr) {
 		return false;
 	}
+	else if ((*root).data == x) {
+		return true;
+	}
 	else if (x < (*root).data) {
-		leftTree().member(x);
+		(*leftTree()).member(x);
 	}
 	else {
-		rightTree().member(x);
+		(*rightTree()).member(x);
 	}
 }
 
@@ -49,24 +50,29 @@ template<class T>
 void BinSearchTree<T>::insert(T x)
 {
 	if (root == nullptr) {
-		Node r = new Node;
-		*r.data = x;
-		*r.left = nullptr;
-		*r.right = nullptr;
+		Node* r = new Node;
+		(*r).data = x;
+		(*r).left = nullptr;
+		(*r).right = nullptr;
 		this->root = r;
 	}
 	else if(x < (*root).data) {
-		leftTree().insert(x);
+		(*leftTree()).insert(x);
 	}
 	else {
-		rightTree().insert(x);
+		(*rightTree()).insert(x);
 	}
 }
 
 template<class T>
 void BinSearchTree<T>::del(T x)
 {
-	if ((*root).data == x) {
+	//first checking if root == nullptr, else it would try to get "nullptr.data"
+	if (root == nullptr) {
+		cout << "x not in Tree" << endl;
+		abort();
+	}
+	else  if ((*root).data == x) {
 		if ((*root).left == nullptr && (*root).right != nullptr)
 		{
 			(*root).data = (*(*root).right).data;
@@ -81,41 +87,37 @@ void BinSearchTree<T>::del(T x)
 		}
 		else
 		{
-			Node a = rightTree().min();
-			BinSearchTree T1 = leftTree();
-			BinSearchTree T2 = rightTree();
-			T2.del(a);
+			Node* a = (*rightTree()).min();
+			BinSearchTree* T1 = leftTree();
+			BinSearchTree* T2 = rightTree();
+			(*T2).del((*a).data);
 			BinSearchTree* temp;
-			temp = makeTree(T1, (*(a.root)).data, T2);
+			temp = makeTree(*T1, (*a).data, *T2);
 			root = (*temp).root;
 		}
 	}
-	else if (root == nullptr) {
-		cout<<"x not in Tree"<<endl;
-		abort();
-	}
 	else if (x < (*root).data) {
-		leftTree().del(x);
+		(*leftTree()).del(x);
 	}
 	else {
-		rightTree().del(x);
+		(*rightTree()).del(x);
 	}
 }
 
 
 
 template <class T>
-BinSearchTree<T> BinSearchTree<T>::leftTree() {
+BinSearchTree<T>* BinSearchTree<T>::leftTree() {
 	BinSearchTree* temp = new BinSearchTree;
-	temp = empty();
+	(*temp).empty();
 	(*temp).root = (*root).left;
 	return temp;
 }
 
 template <class T>
-BinSearchTree<T> BinSearchTree<T>::rightTree() {
-	BinSearchTree temp = new BinSearchTree;
-	temp = empty();
+BinSearchTree<T>* BinSearchTree<T>::rightTree() {
+	BinSearchTree* temp = new BinSearchTree;
+	(*temp).empty();
 	(*temp).root = (*root).right;
 	return temp;
 }
@@ -125,15 +127,15 @@ typename BinSearchTree<T>::Node* BinSearchTree<T>::min() {
 	BinSearchTree<T>::Node* mi = root;
 	if ((*root).left == nullptr)
 	{
-		return prev;
+		return mi;
 	}
-	mi = leftTree().min();
+	mi = (*leftTree()).min();
 }
 
 template <class T>
 BinSearchTree<T>* BinSearchTree<T>::makeTree(BinSearchTree& left, T x, BinSearchTree& right) {
 	BinSearchTree* temp = new BinSearchTree;
-	*temp = empty();
+	(*temp).empty();
 	(*((*temp).root)).data = x;
 	(*((*temp).root)).left = ((left).root);
 	(*((*temp).root)).right = ((right).root);

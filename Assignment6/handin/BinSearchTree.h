@@ -26,8 +26,8 @@ public:
 	void del(T x);
 
 	//Helpfunctions
-	BinSearchTree leftTree();
-	BinSearchTree rightTree();
+	BinSearchTree* leftTree();
+	BinSearchTree* rightTree();
 
 	Node* min();
 };

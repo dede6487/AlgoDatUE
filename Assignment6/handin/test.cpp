@@ -18,7 +18,7 @@ int main() {
 		cout << "a is not empty" << endl;
 	}
 
-	a.insert(1);
+	a.insert(1);//insert doesn't work
 	a.insert(2);
 	a.insert(3);
 	a.insert(42);
@@ -30,7 +30,7 @@ int main() {
 		cout << "2 is not member of a" << endl;
 	}
 
-	a.del(2);
+	a.del(2);//because insert does not work, delete aborts
 
 	if (a.member(2)) {
 		cout << "2 is member of a" << endl;
