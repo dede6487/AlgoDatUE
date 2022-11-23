@@ -106,7 +106,7 @@ void BinSearchTree<T>::del(T x)
 
 template <class T>
 BinSearchTree<T> BinSearchTree<T>::leftTree() {
-	BinSearchTree temp = new BinSearchTree;
+	BinSearchTree* temp = new BinSearchTree;
 	temp = empty();
 	(*temp).root = (*root).left;
 	return temp;
@@ -139,3 +139,5 @@ BinSearchTree<T>* BinSearchTree<T>::makeTree(BinSearchTree& left, T x, BinSearch
 	(*((*temp).root)).right = ((right).root);
 	return temp;
 }
+
+template class BinSearchTree<int>;
