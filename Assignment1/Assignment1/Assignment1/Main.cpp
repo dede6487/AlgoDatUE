@@ -23,7 +23,7 @@ bool contains(int arr[], int n, int val)
 	return b;
 }
 
-bool contains2(int arr[], int n, int val)
+bool contains2(int arr[], int n, int val)//fine
 {
 	int i = 0;
 	while (i < n && arr[i] != val)
@@ -43,7 +43,7 @@ bool contains2(int arr[], int n, int val)
 //comments for troubeshooting
 bool contains3(int arr[], int start, int end, int val)
 {
-	int m = (end - start) / 2;//integer division so no floor
+	int m = (end - start) / 2;//integer division so no floor //+start
 	//cout << m << endl;
 	if(arr[m] == val)
 	{
@@ -63,6 +63,8 @@ bool contains3(int arr[], int start, int end, int val)
 		}
 	}
 	return false;
+	//no end condition
+	//restructure to fix
 }
 
 //Exercise 3 *******************************************************
@@ -80,7 +82,7 @@ void RedBlue(bool arr[], int n) {
 			red.push_back(i);
 		}
 		else {
-			blue.push_back(i);
+			blue.push_back(i);//print instead of storing
 		}
 	}
 
@@ -93,7 +95,7 @@ void RedBlue(bool arr[], int n) {
 	cout << "blue indices:" << endl;
 
 	for (int i = 0; i < blue.size(); i++) {
-		cout << i << endl;
+		cout << i << endl;//then not needed
 	}
 }
 
