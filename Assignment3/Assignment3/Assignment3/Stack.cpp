@@ -24,7 +24,8 @@ void Stack<T>::push(T element) {
 	}
 	else {
 		cout << "Error: overflow, out of Range(MAX_SIZE, Push())" << endl;
-		abort();
+		abort();//bad practice,  dont use abort, because the user of the class might want to do sth else if this does not work
+		//better, throw error
 	}
 	
 }

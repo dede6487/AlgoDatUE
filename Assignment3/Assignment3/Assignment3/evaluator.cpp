@@ -78,6 +78,7 @@ int evaluate(string expression) {
 
 
 //added bracket, could not figure out how it should work without them in time
+//look at the priority of the previous operator vs the next Operator - then similar operation than with () can be achieved
 int main() { 
     cout << evaluate("( 2 * 4 ) + 8") << "\n"; //= 16
     cout << evaluate("( 12 / 2 ) - 2") << "\n"; //= 4
