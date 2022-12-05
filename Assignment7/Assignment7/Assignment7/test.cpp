@@ -1,14 +1,18 @@
 #include<iostream>
 
-#include "BinSearchTree.h"
+#include "AVL.h"
 
 using namespace std;
+
+//for this task I reused the structure of the previously made Binary Search Tree
+//because I had an unresolved Error with this HW, I also wasn't able to test the AVL propperly
 
 int main() {
 
 	//ERROR: LNK2019 in VS - Verweis auf nicht aufgelöstes externes Symbol
+	//I couldn't resolve this error, so I wasn't able to test
 
-	BinSearchTree<int> a;
+	AVLTree<int> a;
 	a.empty();
 	
 	if (a.isempty()) {

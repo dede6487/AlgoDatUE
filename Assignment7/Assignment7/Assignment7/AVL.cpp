@@ -1,35 +1,35 @@
-#include "BinSearchTree.h"
+#include "AVL.h"
 
 #include<iostream>
 
 using namespace std;
 
 template<class T>
-BinSearchTree<T>::BinSearchTree()
+AVLTree<T>::AVLTree()
 {
 	root = nullptr;
 }
 
 template<class T>
-BinSearchTree<T>::~BinSearchTree()
+AVLTree<T>::~AVLTree()
 {
 
 }
 
 template<class T>
-void BinSearchTree<T>::empty()
+void AVLTree<T>::empty()
 {
 	root = nullptr;
 }
 
 template<class T>
-bool BinSearchTree<T>::isempty()
+bool AVLTree<T>::isempty()
 {
 	return root == nullptr;
 }
 
 template<class T>
-bool BinSearchTree<T>::member(T x)
+bool AVLTree<T>::member(T x)
 {
 	//first checking if root == nullptr, else it would try to get "nullptr.data"
 	if (root == nullptr) {
@@ -47,7 +47,7 @@ bool BinSearchTree<T>::member(T x)
 }
 
 template<class T>
-void BinSearchTree<T>::insert(T x)
+void AVLTree<T>::insert(T x)
 {
 	if (root == nullptr) {
 		Node* r = new Node;
@@ -62,10 +62,12 @@ void BinSearchTree<T>::insert(T x)
 	else {
 		(*rightTree()).insert(x);
 	}
+
+	rebalance();
 }
 
 template<class T>
-void BinSearchTree<T>::del(T x)
+void AVLTree<T>::del(T x)
 {
 	//first checking if root == nullptr, else it would try to get "nullptr.data"
 	if (root == nullptr) {
@@ -88,10 +90,10 @@ void BinSearchTree<T>::del(T x)
 		else
 		{
 			Node* a = (*rightTree()).min();
-			BinSearchTree* T1 = leftTree();
-			BinSearchTree* T2 = rightTree();
+			AVLTree* T1 = leftTree();
+			AVLTree* T2 = rightTree();
 			(*T2).del((*a).data);
-			BinSearchTree* temp;
+			AVLTree* temp;
 			temp = makeTree(*T1, (*a).data, *T2);
 			root = (*temp).root;
 		}
@@ -102,29 +104,31 @@ void BinSearchTree<T>::del(T x)
 	else {
 		(*rightTree()).del(x);
 	}
+
+	rebalance();
 }
 
 
 
 template <class T>
-BinSearchTree<T>* BinSearchTree<T>::leftTree() {
-	BinSearchTree* temp = new BinSearchTree;
+AVLTree<T>* AVLTree<T>::leftTree() {
+	AVLTree* temp = new AVLTree;
 	(*temp).empty();
 	(*temp).root = (*root).left;
 	return temp;
 }
 
 template <class T>
-BinSearchTree<T>* BinSearchTree<T>::rightTree() {
-	BinSearchTree* temp = new BinSearchTree;
+AVLTree<T>* AVLTree<T>::rightTree() {
+	AVLTree* temp = new AVLTree;
 	(*temp).empty();
 	(*temp).root = (*root).right;
 	return temp;
 }
 
 template <class T>
-typename BinSearchTree<T>::Node* BinSearchTree<T>::min() {
-	BinSearchTree<T>::Node* mi = root;
+typename AVLTree<T>::Node* AVLTree<T>::min() {
+	AVLTree<T>::Node* mi = root;
 	if ((*root).left == nullptr)
 	{
 		return mi;
@@ -133,8 +137,8 @@ typename BinSearchTree<T>::Node* BinSearchTree<T>::min() {
 }
 
 template <class T>
-BinSearchTree<T>* BinSearchTree<T>::makeTree(BinSearchTree& left, T x, BinSearchTree& right) {
-	BinSearchTree* temp = new BinSearchTree;
+AVLTree<T>* AVLTree<T>::makeTree(AVLTree& left, T x, AVLTree& right) {
+	AVLTree* temp = new AVLTree;
 	(*temp).empty();
 	(*((*temp).root)).data = x;
 	(*((*temp).root)).left = ((left).root);
@@ -142,4 +146,35 @@ BinSearchTree<T>* BinSearchTree<T>::makeTree(BinSearchTree& left, T x, BinSearch
 	return temp;
 }
 
-template class BinSearchTree<int>;
+template <class T>
+void AVLTree<T>::rebalance() {
+	if (!AVL()) {
+
+	}
+}
+
+template <class T>
+bool AVLTree<T>::AVL() {
+	if (abs(this->leftTree()->height() - this->rightTree()->heigth()) <= 1)
+	{
+		if this->leftTree()->height() == 0 || this->rightTree()->heigth() == 0) {
+		return true
+		}
+		return this->rightTree()->AVL() && this->leftTree()->AVL();
+	}
+	else {
+		return false
+	}
+}
+
+template <class T>
+int AVLTree<T>::heigth() {
+	if (this->root == nullptr) {
+		return 0
+	}
+	else {
+		return max(this->leftTree()->height(), this->rightTree()->height()) + 1;
+	}
+}
+
+template class AVLTree<int>;

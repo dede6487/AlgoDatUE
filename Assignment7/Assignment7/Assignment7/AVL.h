@@ -1,7 +1,7 @@
 #pragma once
 
 template<class T>
-class BinSearchTree
+class AVLTree
 {
 public:
 	struct Node {
@@ -12,12 +12,15 @@ public:
 private:
 	Node* root;
 
-	BinSearchTree* makeTree(BinSearchTree& left, T x, BinSearchTree& right);
+	AVLTree* makeTree(AVLTree& left, T x, AVLTree& right);
 
+	void rebalance();
+
+	bool AVL();
 public:
 
-	BinSearchTree();
-	~BinSearchTree();
+	AVLTree();
+	~AVLTree();
 
 	void empty();
 	bool isempty();
@@ -26,8 +29,10 @@ public:
 	void del(T x);
 
 	//Helpfunctions
-	BinSearchTree* leftTree();
-	BinSearchTree* rightTree();
+	AVLTree* leftTree();
+	AVLTree* rightTree();
 
 	Node* min();
+
+	int heigth();
 };
