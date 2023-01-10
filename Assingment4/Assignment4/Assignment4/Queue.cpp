@@ -2,10 +2,12 @@
 #include "Queue.h"
 using namespace std;
 
+//queue is first in first out FIFO
+
 template <class T>
 Queue<T>::Queue() {
 	for (int i = 0; i < MAX_SIZE; i++) {
-		data[i] = NULL;
+		data[i] = NULL;//cant do that because we dont know what that is
 	}
 	frontIndex = 0;
 	endIndex = 0;

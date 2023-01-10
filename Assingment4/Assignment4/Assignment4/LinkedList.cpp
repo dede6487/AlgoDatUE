@@ -18,11 +18,11 @@ LinkedList<T>::LinkedList(){
 
 template <class T>
 LinkedList<T>::~LinkedList(){
-
+	//delete all the nodes in the list
 }
 
 template <class T>
-LinkedList<T> LinkedList<T>::empty() {
+LinkedList<T> LinkedList<T>::empty() { //to empty the list, not return an empty list
 	return LinkedList<T>::LinkedList();
 }
 
@@ -140,7 +140,7 @@ template <class T>
 T LinkedList<T>::retrieve(Node* node){
 	//verstehe noch nicht ganz was das macht
 	return NULL;
-}
+}   
 
 template <class T>
 void LinkedList<T>::printList () {

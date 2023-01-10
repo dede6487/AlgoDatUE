@@ -6,6 +6,8 @@
 #include <cstdio>
 using namespace std;
 
+//if writing messages, always ask the user if they want a message there, maybe they need a log file or even abort the program etc.
+
 void testQueue(int a[], int n) {
 	Queue <int> q;
 	cout << "Is the queue empty? " << (q.isEmpty() ? "yes" : "no") << endl;
