@@ -1,0 +1,7 @@
+int tree_height(treenode* top)
+{
+	if (top == nullptr)
+		return 0;
+	else
+		return max(tree_height(top->left),tree_height(top->right)) + 1;
+}

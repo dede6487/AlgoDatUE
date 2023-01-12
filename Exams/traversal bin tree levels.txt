@@ -1,0 +1,8 @@
+queue <- root
+while(queue.empty() != true)
+{
+	node <- queue.dequeue
+	print node
+	queue <- node.left
+	queue <- node.right
+}

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+//data structure used nowadays is usually trie, which is a special type of tree structure
+
 template <class T = int>
 class Set {
 private:

@@ -27,27 +27,71 @@ void insertionSort(int array[], int len) {
 }
 
 
-//merge sort with output in decending order
+//merge sort with output in decending order as shown in the lecture
 
-void merge(int array[], int startIndex, int midIndex, int endIndex) {
+void merge(int array1[], int startIndex, int midIndex, int endIndex) {
+	int arrayLeft = midIndex - startIndex + 1;
+	int arrayRight = endIndex - midIndex;
 
+	int* arrayLeft = new int[midIndex - startIndex + 1];
+	int* arrayRight = new int[endIndex - midIndex];
+
+	for (int i = 0; i < midIndex - startIndex + 1; i++) {
+		arrayLeft[i] = array1[startIndex + i];
+	}
+	for (int i = 0; i < midIndex - startIndex + 1; i++) {
+		arrayRight[i] = array1[midIndex + i + 1];
+	}
+
+	int indexOfSubArrayOne = 0;
+	int indexOfSubArrayTwo = 0;
+	int indexOfMergedArray = 0;
+
+	while (indexOfSubArrayOne < arrayLeft
+		&& indexOfSubArrayTwo < arrayRight) {
+		if (arrayLeft[indexOfSubArrayOne]
+			<= arrayRight[indexOfSubArrayTwo]) {
+			array1[indexOfMergedArray]
+				= arrayLeft[indexOfSubArrayOne];
+			indexOfSubArrayOne++;
+		}
+		else {
+			array1[indexOfMergedArray]
+				= arrayRight[indexOfSubArrayTwo];
+			indexOfSubArrayTwo++;
+		}
+		indexOfMergedArray++;
+	}
+	// Copy the remaining elements of
+	// left[], if there are any
+	while (indexOfSubArrayOne < arrayLeft) {
+		array1[indexOfMergedArray]
+			= arrayLeft[indexOfSubArrayOne];
+		indexOfSubArrayOne++;
+		indexOfMergedArray++;
+	}
+	// Copy the remaining elements of
+	// right[], if there are any
+	while (indexOfSubArrayTwo < arrayRight) {
+		array1[indexOfMergedArray]
+			= arrayRight[indexOfSubArrayTwo];
+		indexOfSubArrayTwo++;
+		indexOfMergedArray++;
+	}
+	delete[] arrayLeft;
+	delete[] arrayRight;
 }
 
-void mergeSort(int array[], int startIndex, int endIndex) {
-	if (endIndex - startIndex == 2) //base-case
+void mergeSort(int array1[], int startIndex, int endIndex) {
+	if (endIndex - startIndex == 1) //base-case
 	{
-		if (array[startIndex] > array[endIndex])
-		{
-			int temp = array[startIndex];
-			array[startIndex] = array[endIndex];
-			array[endIndex] = temp;
-		}
+		return;
 	}
 	else {
 		int m = endIndex + startIndex / 2;
-		mergeSort(array, 0, m);
-		mergeSort(array, m+1, 0);
-		merge(array, startIndex, m, endIndex);
+		mergeSort(array1, startIndex, m);
+		mergeSort(array1, m+1, endIndex);
+		merge(array1, startIndex, m, endIndex);
 	}
 }
 
