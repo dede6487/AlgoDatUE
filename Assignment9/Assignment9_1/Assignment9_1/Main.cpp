@@ -21,7 +21,7 @@ int main()
 
 	ifstream inputfile;
 
-	inputfile.open("sortdaten.txt");
+	inputfile.open("shortdaten.txt");
 
 	while (inputfile >> number)
 	{
@@ -51,10 +51,14 @@ int main()
 
 	insertionSort(testarr, size);
 
-	for (unsigned int i = 1; i < size; i++) {
-		if (! (testarr[i - 1] < testarr[i])) {
+	for (unsigned int i = 1; i < size - 1; i++) {
+		if (testarr[i] > testarr[i + 1]) { //!(testarr[i] <= testarr[i + 1]
 			test1 = false;
 		}
+	}
+
+	for (unsigned int i = 1; i < size; i++) {
+		cout << testarr[i] << endl;
 	}
 
 	cout << "insertion Sort is correct:" << test1 << endl;
@@ -64,8 +68,8 @@ int main()
 
 	mergeSort(testarr, 0, size);
 
-	for (unsigned int i = 1; i < size; i++) {
-		if (!(testarr[i - 1] < testarr[i])) {
+	for (unsigned int i = 1; i < size - 1; i++) {
+		if (testarr[i] > testarr[i + 1]) { //!(testarr[i] <= testarr[i + 1]
 			test2 = false;
 		}
 	}
