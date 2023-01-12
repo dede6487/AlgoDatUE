@@ -17,7 +17,7 @@ private:
 public:
 
 	BinSearchTree();
-	~BinSearchTree();
+	~BinSearchTree();  
 
 	void empty();
 	bool isempty();

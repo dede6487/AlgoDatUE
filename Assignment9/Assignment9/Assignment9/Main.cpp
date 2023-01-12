@@ -27,59 +27,52 @@ void insertionSort(int array[], int len) {
 }
 
 
-//merge sort with output in decending order as shown in the lecture
+//merge sort with output in decending order according to the example done in the lecture
 
 void merge(int array1[], int startIndex, int midIndex, int endIndex) {
-	int arrayLeft = midIndex - startIndex + 1;
-	int arrayRight = endIndex - midIndex;
+	int* array2 = new int[endIndex - startIndex];
 
-	int* arrayLeft = new int[midIndex - startIndex + 1];
-	int* arrayRight = new int[endIndex - midIndex];
+	int leftLen = midIndex - startIndex + 1;
+	int rightLen = endIndex - midIndex;
 
-	for (int i = 0; i < midIndex - startIndex + 1; i++) {
-		arrayLeft[i] = array1[startIndex + i];
-	}
-	for (int i = 0; i < midIndex - startIndex + 1; i++) {
-		arrayRight[i] = array1[midIndex + i + 1];
-	}
-
-	int indexOfSubArrayOne = 0;
-	int indexOfSubArrayTwo = 0;
-	int indexOfMergedArray = 0;
-
-	while (indexOfSubArrayOne < arrayLeft
-		&& indexOfSubArrayTwo < arrayRight) {
-		if (arrayLeft[indexOfSubArrayOne]
-			<= arrayRight[indexOfSubArrayTwo]) {
-			array1[indexOfMergedArray]
-				= arrayLeft[indexOfSubArrayOne];
-			indexOfSubArrayOne++;
+	for (int i = 0; i < endIndex - startIndex + 1; i++) {
+		if (i < midIndex - startIndex + 1) {
+			array2[i] = array1[startIndex + i];
 		}
 		else {
-			array1[indexOfMergedArray]
-				= arrayRight[indexOfSubArrayTwo];
-			indexOfSubArrayTwo++;
+			array2[i] = array1[midIndex + i + 1];
 		}
-		indexOfMergedArray++;
 	}
-	// Copy the remaining elements of
-	// left[], if there are any
-	while (indexOfSubArrayOne < arrayLeft) {
-		array1[indexOfMergedArray]
-			= arrayLeft[indexOfSubArrayOne];
-		indexOfSubArrayOne++;
-		indexOfMergedArray++;
+
+	int indexLeft = 0;
+	int indexRight = midIndex + 1;
+	int indexMerge = 0;
+
+	while (indexLeft < leftLen && indexRight < rightLen) {
+		if (array2[indexLeft] <= array2[indexRight]) {
+			array1[indexMerge] = array2[indexLeft];
+			indexLeft++;
+		}
+		else {
+			array1[indexMerge] = array2[indexRight];
+			indexRight++;
+		}
+		indexMerge++;
 	}
-	// Copy the remaining elements of
-	// right[], if there are any
-	while (indexOfSubArrayTwo < arrayRight) {
-		array1[indexOfMergedArray]
-			= arrayRight[indexOfSubArrayTwo];
-		indexOfSubArrayTwo++;
-		indexOfMergedArray++;
+
+	//copying the rest of the array
+
+	while (indexLeft < leftLen) {
+		array1[indexMerge] = array2[indexLeft];
+		indexLeft++;
+		indexMerge++;
 	}
-	delete[] arrayLeft;
-	delete[] arrayRight;
+
+	while (indexRight < rightLen) {
+		array1[indexMerge] = array2[indexRight];
+		indexRight++;
+		indexMerge++;
+	}
 }
 
 void mergeSort(int array1[], int startIndex, int endIndex) {
@@ -106,7 +99,7 @@ int main()
 
 	ifstream inputfile;
 
-	inputfile.open("IntegerWerte.txt");
+	inputfile.open("sortdaten.txt");
 
 	while (inputfile >> number)
 	{
@@ -115,10 +108,7 @@ int main()
 
 	inputfile.close();
 
-	//tempv stays in memory, should be deleted
-
 	unsigned int size = tempv.size();
-	//cout << size << endl;
 
 	int* arr = new int[size];
 
@@ -126,40 +116,76 @@ int main()
 		arr[j] = tempv[j];
 	}
 
-	// Clock each method by running it 300000 times
-		// for a random c
+	//testing the methods for correctness
+	
+	cout << "Testing if the algorithms are correct:" << endl;
+
+	bool test1 = true;
+	bool test2 = true;
+
+	//slow sort
+	int* testarr = new int[size];
+	testarr = arr;
+
+	insertionSort(testarr, size);
+
+	for (int i = 1; i < size; i++) {
+		if (! (testarr[i - 1] < testarr[i])) {
+			test1 = false;
+		}
+	}
+
+	cout << "insertion Sort is correct:" << test1 << endl;
+
+	//merge sort
+	//testarr = arr;
+
+	//mergeSort(testarr, 0, size);
+
+	//for (int i = 1; i < size; i++) {
+	//	if (!(testarr[i - 1] < testarr[i])) {
+	//		test2 = false;
+	//	}
+	//}
+
+	cout << "merge Sort is correct:" << test2 << endl;
+
+	cout << "Time it took the Algorithms for finishing the testcase:" << endl;
+
+	// Clock each method by running it 30000 times
+	//caution, these timings also include the copying of the array
 
 	double time1 = 0;
 	double time2 = 0;
-	double time3 = 0;
 
 	clock_t start;
 
-	//Contains1
+	//slow sort
 	start = clock();
 
 	for (int k = 0; k < 30000; k++) {
-		int val = rand() % 300000;
-		contains(arr, size, val);
+		testarr = arr;
+		insertionSort(testarr, size);
 	}
 
 	time1 = (clock() - start) / (double)
 		CLOCKS_PER_SEC;
 
+	cout << "insertion Sort took (seconds):" << time1 << endl;
 
-	//Contains2
-	start = clock();
+	//merge sort
+	//start = clock();
 
-	for (int k = 0; k < 30000; k++) {
-		int val = rand() % 300000;
-		contains2(arr, size, val);
-	}
+	//for (int k = 0; k < 30000; k++) {
+	//	testarr = arr;
+	//	mergeSort(testarr, 0, size);
+	//}
 
-	time2 = (clock() - start) / (double)
-		CLOCKS_PER_SEC;
+	//time2 = (clock() - start) / (double)
+	//	CLOCKS_PER_SEC;
 
-	cout << "Time it took the Algorithms for finishing the testcase:" << endl;
-	cout << "Contains1 took (seconds):" << time1 << endl;
-	cout << "Contains2 took (seconds):" << time2 << endl;
+	delete[] testarr;
+
+	cout << "merge Sort took (seconds):" << time2 << endl;
 }
 
